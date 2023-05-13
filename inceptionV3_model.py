@@ -1,17 +1,13 @@
 
-import  tensorflow as tf
-print(tf.config.list_physical_devices('GPU'))
+# import  tensorflow as tf
+# print(tf.config.list_physical_devices('GPU'))
 
-from keras.layers import Input,Lambda ,Dense ,Flatten
+from keras.layers import Dense ,Flatten
 from keras.models import Model
 from keras.applications.inception_v3 import InceptionV3
-from keras.applications.inception_v3 import preprocess_input
-from keras.preprocessing import image
 from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-import numpy as np
 from glob import glob
-from PIL import Image
+
 
 train_path = 'P:\\Machine Learning\\Plant diseases\\Data set\\New Plant Diseases Dataset(Augmented)\\New Plant Diseases Dataset(Augmented)\\train'
 valid_path = 'P:\\Machine Learning\\Plant diseases\\Data set\\New Plant Diseases Dataset(Augmented)\\New Plant Diseases Dataset(Augmented)\\valid'
@@ -56,10 +52,12 @@ test_set =train_datagen.flow_from_directory(valid_path,
                                                 )
 # print(test_set)
 
-r=model.fit  (
-    training_set,validation_data=test_set,epochs=1,
+model.fit(
+    training_set,
+    validation_data=test_set,
+    epochs=3,
     steps_per_epoch=len(training_set),
     validation_steps=len(test_set)
 
 )
-# model.save('abc.h5')
+model.save('plant_disease_model.h5')
